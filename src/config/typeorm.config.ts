@@ -10,5 +10,5 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
   synchronize: true,
-  entities: [__dirname + '/../entity/*.entity{.ts,.js}'],
+  entities: [__dirname + '/../entities/*.entity{.ts,.js}'],
 };
