@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 
 // Local files
 import { ScootersModule } from './scooters/scooters.module';
-import { ScooterTypesModule } from './scooter_types/Service/scooter_types.module';
+import { ScooterTypesModule } from './scooter_types/scooter_types.module';
 
 @Module({
   imports: [ScootersModule, ScooterTypesModule],

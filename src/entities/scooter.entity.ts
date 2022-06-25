@@ -1,10 +1,11 @@
 import {
-  OneToOne,
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  RelationId,
+  ManyToOne,
   JoinColumn,
 } from 'typeorm';
 import { ScooterType } from './scooter_type.entity';
@@ -29,9 +30,15 @@ export class Scooter {
   @Column('decimal', { precision: 17, scale: 14 })
   lon: number;
 
-  @OneToOne(() => ScooterType)
-  @JoinColumn()
-  vehicle_type: number;
+  @ManyToOne(() => ScooterType, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn({ name: 'type_id' })
+  _vehicle_type: ScooterType;
+
+  @Column()
+  type_id: number;
 
   @Column('boolean', { default: false })
   is_reserved: boolean;

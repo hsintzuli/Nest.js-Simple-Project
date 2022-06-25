@@ -1,18 +1,31 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Scooter } from 'src/entities/scooter.entity';
 import { CreateScooterDto } from '../dto/create-scooter.dto';
 import { UpdateScooterDto } from '../dto/update-scooter.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ScooterType } from 'src/entities/scooter_type.entity';
 
 @Injectable()
 export class ScootersService {
   constructor(
     @InjectRepository(Scooter)
     private scooterRepository: Repository<Scooter>,
+    @InjectRepository(ScooterType)
+    private scooterTypesRepository: Repository<ScooterType>,
   ) {}
 
   async create(createScooterDto: CreateScooterDto): Promise<Scooter> {
+    const vehicle_type = await this.scooterTypesRepository.findOneBy({
+      id: createScooterDto.type_id,
+    });
+    if (!vehicle_type) {
+      throw new BadRequestException('Invalid vehicle type');
+    }
     return await this.scooterRepository.save(createScooterDto);
   }
 
@@ -33,8 +46,7 @@ export class ScootersService {
     scooter.license_plate =
       updateScooterDto.license_plate || scooter.license_plate;
     scooter.mileage = updateScooterDto.mileage || scooter.mileage;
-    scooter.vehicle_type =
-      updateScooterDto.vehicle_type || scooter.vehicle_type;
+    scooter.type_id = updateScooterDto.type_id || scooter.type_id;
 
     return this.scooterRepository.save(scooter);
   }

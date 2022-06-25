@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
-import { ScooterTypesService } from '../scooter_types.service';
+import { ScooterTypesService } from '../Service/scooter_types.service';
 import { CreateScooterTypeDto } from '../dto/create-scooter_type.dto';
+import { ParseIntPipe } from '@nestjs/common';
 
 @Controller('scooter-types')
 export class ScooterTypesController {
@@ -17,12 +18,12 @@ export class ScooterTypesController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseIntPipe) id: number) {
     return await this.scooterTypesService.findOne(+id);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id', ParseIntPipe) id: number) {
     return await this.scooterTypesService.remove(+id);
   }
 }

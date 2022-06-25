@@ -23,7 +23,7 @@ export class CreateScooterDto {
 
   @IsNotEmpty()
   @IsNumber()
-  vehicle_type: number;
+  type_id: number;
 
   @IsNotEmpty()
   @IsBoolean()
