@@ -11,7 +11,7 @@ import { ScooterType } from './scooter_type.entity';
 
 @Entity()
 export class Scooter {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column('char', { length: 8, unique: true })

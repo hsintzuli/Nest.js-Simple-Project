@@ -10,33 +10,37 @@ import {
 import { ScootersService } from '../Service/scooters.service';
 import { CreateScooterDto } from '../dto/create-scooter.dto';
 import { UpdateScooterDto } from '../dto/update-scooter.dto';
+import { ParseIntPipe } from '@nestjs/common';
 
 @Controller('scooters')
 export class ScootersController {
   constructor(private readonly scootersService: ScootersService) {}
 
   @Post()
-  create(@Body() createScooterDto: CreateScooterDto) {
+  async create(@Body() createScooterDto: CreateScooterDto) {
     return this.scootersService.create(createScooterDto);
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.scootersService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.scootersService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.scootersService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateScooterDto: UpdateScooterDto) {
-    return this.scootersService.update(+id, updateScooterDto);
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateScooterDto: UpdateScooterDto,
+  ) {
+    return this.scootersService.update(id, updateScooterDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.scootersService.remove(+id);
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return this.scootersService.remove(id);
   }
 }
