@@ -1,7 +1,7 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
@@ -12,11 +12,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class Scooter {
-  @PrimaryGeneratedColumn('increment')
-  @ApiProperty()
-  id: number;
-
-  @Column('char', { length: 8, unique: true })
+  @PrimaryColumn('char', { length: 8 })
   @ApiProperty()
   license_plate: string;
 

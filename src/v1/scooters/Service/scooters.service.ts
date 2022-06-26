@@ -26,6 +26,12 @@ export class ScootersService {
     if (!vehicle_type) {
       throw new BadRequestException('Invalid vehicle type');
     }
+    const exitedScooter = await this.scooterRepository.findOneBy({
+      license_plate: createScooterDto.license_plate,
+    });
+    if (exitedScooter) {
+      throw new BadRequestException('Duplicate license plate');
+    }
     return await this.scooterRepository.save(createScooterDto);
   }
 
@@ -33,12 +39,12 @@ export class ScootersService {
     return await this.scooterRepository.find();
   }
 
-  async findOne(id: number) {
-    return await this.findScooterById(id);
+  async findOne(license_plate: string) {
+    return await this.findScooterByPK(license_plate);
   }
 
-  async update(id: number, updateScooterDto: UpdateScooterDto) {
-    const scooter = await this.findScooterById(id);
+  async update(license_plate: string, updateScooterDto: UpdateScooterDto) {
+    const scooter = await this.findScooterByPK(license_plate);
     scooter.battery_level =
       updateScooterDto.battery_level || scooter.battery_level;
     scooter.lat = updateScooterDto.lat || scooter.lat;
@@ -51,15 +57,15 @@ export class ScootersService {
     return this.scooterRepository.save(scooter);
   }
 
-  async remove(id: number) {
-    const scooter = await this.findScooterById(id);
+  async remove(license_plate: string) {
+    const scooter = await this.findScooterByPK(license_plate);
     return await this.scooterRepository.remove(scooter);
   }
 
-  private async findScooterById(id: number): Promise<Scooter> {
-    const scooter = await this.scooterRepository.findOneBy({ id });
+  private async findScooterByPK(license_plate: string): Promise<Scooter> {
+    const scooter = await this.scooterRepository.findOneBy({ license_plate });
     if (!scooter) {
-      throw new NotFoundException('Could not find the Scooter Type');
+      throw new NotFoundException('Could not find the scooter');
     }
     return scooter;
   }

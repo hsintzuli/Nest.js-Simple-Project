@@ -10,7 +10,6 @@ import {
 import { ScootersService } from '../Service/scooters.service';
 import { CreateScooterDto } from '../dto/create-scooter.dto';
 import { UpdateScooterDto } from '../dto/update-scooter.dto';
-import { ParseIntPipe } from '@nestjs/common';
 import {
   ApiBody,
   ApiCreatedResponse,
@@ -52,18 +51,18 @@ export class ScootersController {
     return this.scootersService.findAll();
   }
 
-  @Get(':id')
+  @Get(':license_plate')
   @ApiOkResponse({ type: Scooter, description: 'Get scooter by id' })
   @ApiBadRequestResponse({ description: 'Invalid query parameter' })
   @ApiNotFoundResponse({ description: 'Scooter not found' })
   @ApiInternalServerErrorResponse({
     description: 'Internal Server Error',
   })
-  async findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.scootersService.findOne(id);
+  async findOne(@Param('license_plate') license_plate: string) {
+    return this.scootersService.findOne(license_plate);
   }
 
-  @Patch(':id')
+  @Patch(':license_plate')
   @ApiBody({ type: UpdateScooterDto })
   @ApiOkResponse({
     type: Scooter,
@@ -75,13 +74,13 @@ export class ScootersController {
     description: 'Internal Server Error',
   })
   async update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('license_plate') license_plate: string,
     @Body() updateScooterDto: UpdateScooterDto,
   ) {
-    return this.scootersService.update(id, updateScooterDto);
+    return this.scootersService.update(license_plate, updateScooterDto);
   }
 
-  @Delete(':id')
+  @Delete(':license_plate')
   @ApiOkResponse({
     type: Scooter,
     description: 'Operation successfully',
@@ -91,7 +90,7 @@ export class ScootersController {
   @ApiInternalServerErrorResponse({
     description: 'Internal Server Error',
   })
-  async remove(@Param('id', ParseIntPipe) id: number) {
-    return this.scootersService.remove(id);
+  async remove(@Param('license_plate') license_plate: string) {
+    return this.scootersService.remove(license_plate);
   }
 }

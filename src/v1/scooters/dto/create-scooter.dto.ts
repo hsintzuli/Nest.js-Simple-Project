@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsNumber, IsString, IsBoolean } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsBoolean,
+  Min,
+  Max,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 export class CreateScooterDto {
   @IsNotEmpty()
@@ -9,11 +16,15 @@ export class CreateScooterDto {
   @IsNotEmpty()
   @IsNumber()
   @ApiProperty()
+  @Min(0)
+  @Max(99999.99)
   mileage: number;
 
   @IsNotEmpty()
   @IsNumber()
   @ApiProperty()
+  @Min(0)
+  @Max(100)
   battery_level: number;
 
   @IsNotEmpty()
