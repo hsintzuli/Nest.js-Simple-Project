@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ScootersService } from './scooters.service';
 import { CreateScooterDto } from './dto/create-scooter.dto';
@@ -20,6 +21,7 @@ import {
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
 import { Scooter } from 'src/entities/scooter.entity';
+import { QueryScooterDto } from './dto/query-scooter.dto';
 
 @ApiTags('Scooters')
 @Controller('scooters')
@@ -39,7 +41,7 @@ export class ScootersController {
     description: 'Internal Server Error',
   })
   async create(@Body() createScooterDto: CreateScooterDto) {
-    return this.scootersService.create(createScooterDto);
+    return await this.scootersService.create(createScooterDto);
   }
 
   @Get()
@@ -47,8 +49,13 @@ export class ScootersController {
   @ApiInternalServerErrorResponse({
     description: 'Internal Server Error',
   })
-  async findAll() {
-    return this.scootersService.findAll();
+  async findAll(@Query() condition: QueryScooterDto) {
+    if (condition && condition.hasOwnProperty('avaliable')) {
+      return await this.scootersService.findAvaliableScooters(
+        condition.avaliable,
+      );
+    }
+    return await this.scootersService.findAll();
   }
 
   @Get(':license_plate')
@@ -59,7 +66,7 @@ export class ScootersController {
     description: 'Internal Server Error',
   })
   async findOne(@Param('license_plate') license_plate: string) {
-    return this.scootersService.findOne(license_plate);
+    return await this.scootersService.findOne(license_plate);
   }
 
   @Patch(':license_plate')
@@ -77,7 +84,7 @@ export class ScootersController {
     @Param('license_plate') license_plate: string,
     @Body() updateScooterDto: UpdateScooterDto,
   ) {
-    return this.scootersService.update(license_plate, updateScooterDto);
+    return await this.scootersService.update(license_plate, updateScooterDto);
   }
 
   @Delete(':license_plate')
@@ -91,6 +98,6 @@ export class ScootersController {
     description: 'Internal Server Error',
   })
   async remove(@Param('license_plate') license_plate: string) {
-    return this.scootersService.remove(license_plate);
+    return await this.scootersService.remove(license_plate);
   }
 }

@@ -9,6 +9,7 @@ import { UpdateScooterDto } from './dto/update-scooter.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ScooterType } from 'src/entities/scooter_type.entity';
+import { QueryScooterDto } from './dto/query-scooter.dto';
 
 @Injectable()
 export class ScootersService {
@@ -39,8 +40,15 @@ export class ScootersService {
     return await this.scooterRepository.find();
   }
 
-  async findOne(license_plate: string) {
+  async findOne(license_plate: string): Promise<Scooter> {
     return await this.findScooterByPK(license_plate);
+  }
+
+  async findAvaliableScooters(isAvaliable: boolean) {
+    const condition = !isAvaliable;
+    return await this.scooterRepository.find({
+      where: { is_reserved: condition, is_disabled: condition },
+    });
   }
 
   async update(license_plate: string, updateScooterDto: UpdateScooterDto) {
