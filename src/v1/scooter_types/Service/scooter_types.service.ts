@@ -26,7 +26,8 @@ export class ScooterTypesService {
   }
 
   async remove(id: number): Promise<ScooterType> {
-    return await this.scooterTypeRepository.findOneBy({ id });
+    const scooterType = await this.findScooterTypeById(id);
+    return await this.scooterTypeRepository.remove(scooterType);
   }
 
   private async findScooterTypeById(id: number): Promise<ScooterType> {
