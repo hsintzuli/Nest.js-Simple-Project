@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
-import { ScooterTypesService } from '../Service/scooter_types.service';
-import { CreateScooterTypeDto } from '../dto/create-scooter_type.dto';
+import { ScooterTypesService } from './scooter_types.service';
+import { CreateScooterTypeDto } from './dto/create-scooter_type.dto';
 import { ParseIntPipe } from '@nestjs/common';
 import { ScooterType } from 'src/entities/scooter_type.entity';
 import {

@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateScooterTypeDto } from '../dto/create-scooter_type.dto';
+import { CreateScooterTypeDto } from './dto/create-scooter_type.dto';
 import { Repository } from 'typeorm';
 import { ScooterType } from 'src/entities/scooter_type.entity';
 import { InjectRepository } from '@nestjs/typeorm';

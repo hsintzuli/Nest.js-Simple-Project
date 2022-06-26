@@ -4,8 +4,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Scooter } from 'src/entities/scooter.entity';
-import { CreateScooterDto } from '../dto/create-scooter.dto';
-import { UpdateScooterDto } from '../dto/update-scooter.dto';
+import { CreateScooterDto } from './dto/create-scooter.dto';
+import { UpdateScooterDto } from './dto/update-scooter.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ScooterType } from 'src/entities/scooter_type.entity';

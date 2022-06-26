@@ -7,9 +7,9 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { ScootersService } from '../Service/scooters.service';
-import { CreateScooterDto } from '../dto/create-scooter.dto';
-import { UpdateScooterDto } from '../dto/update-scooter.dto';
+import { ScootersService } from './scooters.service';
+import { CreateScooterDto } from './dto/create-scooter.dto';
+import { UpdateScooterDto } from './dto/update-scooter.dto';
 import {
   ApiBody,
   ApiCreatedResponse,
