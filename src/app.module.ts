@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './config/typeorm.config';
 import { ConfigModule } from '@nestjs/config';
@@ -16,13 +14,11 @@ import { ExamineTimeInterceptor } from './interceptors/examineTime.interceptros'
     TypeOrmModule.forRoot(typeOrmConfig),
     V1Module,
   ],
-  controllers: [AppController],
   providers: [
     {
       provide: APP_INTERCEPTOR,
       useClass: ExamineTimeInterceptor,
     },
-    AppService,
   ],
 })
 export class AppModule {}
