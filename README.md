@@ -6,4 +6,4 @@
 
 ## DB Schema
 
-![DB Schema](https://github.com/hsintzuli/WeMo/imgs/schema.png "DB Schema")
+![DB Schema](./imgs/schema.png)
