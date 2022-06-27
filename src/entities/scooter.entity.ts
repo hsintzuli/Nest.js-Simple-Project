@@ -52,8 +52,10 @@ export class Scooter {
   is_disabled: boolean;
 
   @CreateDateColumn()
+  @ApiProperty()
   created_at: Date;
 
   @UpdateDateColumn()
+  @ApiProperty()
   updated_at: Date;
 }
