@@ -22,8 +22,6 @@ services:
     networks:
       - webnet
     restart: always
-    networks:
-      - webnet
     ports:
       - 3306:${DATABASE_PORT}
     volumes:
