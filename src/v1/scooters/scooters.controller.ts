@@ -20,7 +20,7 @@ import {
   ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import { Scooter } from 'src/entities/scooter.entity';
+import { Scooter } from '../../entities/scooter.entity';
 import { QueryScooterDto } from './dto/query-scooter.dto';
 
 @ApiTags('Scooters')
@@ -49,7 +49,7 @@ export class ScootersController {
   @ApiInternalServerErrorResponse({
     description: 'Internal Server Error',
   })
-  async findAll(@Query() condition: QueryScooterDto) {
+  async findAll(@Query() condition?: QueryScooterDto) {
     if (condition && condition.hasOwnProperty('avaliable')) {
       return await this.scootersService.findAvaliableScooters(
         condition.avaliable,
